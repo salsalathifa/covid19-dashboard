@@ -8,8 +8,6 @@ Original file is located at
 """
 
 # streamlit_app.py
-!pip install streamlit scikit-learn --quiet
-
 import streamlit as st
 import pandas as pd
 import numpy as np
