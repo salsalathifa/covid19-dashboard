@@ -12,6 +12,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -64,6 +65,37 @@ st.write("**R² Score:**", r2_score(y_test, y_pred))
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 st.write("**RMSE:**", rmse)
+
+# Visualisasi: Scatter plot antara nilai aktual dan prediksi
+fig_pred = go.Figure()
+
+fig_pred.add_trace(go.Scatter(
+    x=y_test,
+    y=y_pred,
+    mode='markers',
+    marker=dict(color='blue', size=6),
+    name='Prediksi'
+))
+
+# Tambahkan garis ideal (y = x)
+fig_pred.add_trace(go.Scatter(
+    x=y_test,
+    y=y_test,
+    mode='lines',
+    line=dict(color='red', dash='dash'),
+    name='Ideal'
+))
+
+fig_pred.update_layout(
+    title='Prediksi vs Aktual Total Kasus COVID-19',
+    xaxis_title='Aktual Total Kasus',
+    yaxis_title='Prediksi Total Kasus',
+    width=800,
+    height=500
+)
+
+st.plotly_chart(fig_pred)
+
 
 # -----------------------------
 # Unsupervised Learning (Clustering)
